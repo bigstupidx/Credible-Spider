@@ -12,46 +12,45 @@
 #include "Manager.h"
 #include "ReturnType.h"
 
-class DialogEvaluate :public CDialogImpl<DialogEvaluate>
-{
+class DialogEvaluate : public CDialogImpl<DialogEvaluate> {
 private:
 
-	//线程进行标记
-	bool onThread;
+    //线程进行标记
+    bool onThread;
 
-	//manager指针集
-	std::unordered_set<std::shared_ptr<Manager>> managers;
+    //manager指针集
+    std::unordered_set<std::shared_ptr<Manager>> managers;
 
-	//线程数
-	int threadNum;
-	int suit;
+    //线程数
+    int threadNum;
+    int suit;
 
-	//输入评估组
-	std::vector<ReturnType> input;
+    //输入评估组
+    std::vector<ReturnType> input;
 
-	std::mutex mtx;
+    std::mutex mtx;
 
-	TButton btnCancel;
-	TStatic staticMemo;
-	std::vector<TStatic> vecStatic;
+    TButton btnCancel;
+    TStatic staticMemo;
+    std::vector<TStatic> vecStatic;
 
 public:
-	std::shared_ptr<std::unordered_map<uint32_t, ReturnType>> ret;
+    std::shared_ptr<std::unordered_map<uint32_t, ReturnType>> ret;
 
-	enum { IDD = IDD_DIALOG_SEARCH };
+    enum { IDD = IDD_DIALOG_SEARCH };
 
-	BEGIN_MSG_MAP(DialogEvaluate)
-		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
-		MESSAGE_HANDLER(WM_CLOSE, OnClose)
-		MESSAGE_HANDLER(WM_COMMAND, OnCommand)
-	END_MSG_MAP()
+    BEGIN_MSG_MAP(DialogEvaluate)
+    MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+    MESSAGE_HANDLER(WM_CLOSE, OnClose)
+    MESSAGE_HANDLER(WM_COMMAND, OnCommand)
+    END_MSG_MAP()
 
-	DialogEvaluate(int suit,std::vector<ReturnType> input) :suit(suit),input(input){}
+    DialogEvaluate(int suit, std::vector<ReturnType> input) : suit(suit), input(input) {}
 
-	LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+    LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
-	LRESULT OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+    LRESULT OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
-	LRESULT OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+    LRESULT OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 };
